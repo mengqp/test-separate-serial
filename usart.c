@@ -4,7 +4,7 @@
 *	  <date>		 <author>		<version>		<desc>
 *	--------------------------------------------------------------------------
 *	2012/08/08		sunhaifeng		  v1.0			Create
-*	
+*
 *
 *
 *******************************************************************************/
@@ -12,6 +12,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 // 头文件
 #include "usart.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <termios.h>
+#include <unistd.h>
+#include <strings.h>
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // 局部宏定义
@@ -37,7 +45,7 @@
 *
 *	@retval		失败返回FAIL 成功返回SUCCESS
 *
-*	@note	
+*	@note
 *
 *******************************************************************************/
 status_t open_usart(const char *pdev_name, s32_t *psp_fd)
@@ -53,7 +61,7 @@ status_t open_usart(const char *pdev_name, s32_t *psp_fd)
 
 	*psp_fd = fd;
 
-	return SUCCESS;	
+	return SUCCESS;
 }
 
 /*******************************************************************************
@@ -68,7 +76,7 @@ status_t open_usart(const char *pdev_name, s32_t *psp_fd)
 *
 *	@retval		失败返回FAIL 成功返回SUCCESS
 *
-*	@note	
+*	@note
 *
 *******************************************************************************/
 status_t set_usart_attr(s32_t sp_fd, u32_t band_rate, u08_t data_bits, u08_t odd_even, u08_t stop_bits)
@@ -273,3 +281,18 @@ status_t set_usart_attr(s32_t sp_fd, u32_t band_rate, u08_t data_bits, u08_t odd
 
 	return SUCCESS;
 }
+
+/*******************************************************************************
+ * 函数名:close_fd
+ * 功能描述:关闭串口
+ * 参数:s32_t psp_fd
+ * 被调用:
+ * 返回值:void
+ ******************************************************************************/
+void close_fd(s32_t psp_fd)
+{
+    if ( psp_fd >0 )
+    {
+        close( psp_fd );
+    }
+}   /*-------- end close_fd -------- */

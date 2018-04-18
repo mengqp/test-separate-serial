@@ -4,7 +4,7 @@
 *	  <date>		 <author>		<version>		<desc>
 *	--------------------------------------------------------------------------
 *	2012/08/08		sunhaifeng		  v1.0			Create
-*	
+*
 *
 *
 *******************************************************************************/
@@ -14,7 +14,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // 头文件
-#include "public.h"
+#include "datatype.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 全局宏定义
@@ -33,6 +33,7 @@ typedef struct
 // 全局函数声明
 status_t open_usart(const char *pdev_name, s32_t *psp_fd);
 status_t set_usart_attr(s32_t sp_fd, u32_t band_rate, u08_t data_bits, u08_t odd_even, u08_t stop_bits);
+void close_usart(s32_t psp_fd );
 
 
 #endif	// #ifndef __USART_H__

@@ -1,0 +1,3 @@
+*.py
+*.o
+test_separate_serial
