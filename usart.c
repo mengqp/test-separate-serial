@@ -281,16 +281,16 @@ status_t set_usart_attr(s32_t sp_fd, u32_t band_rate, u08_t data_bits, u08_t odd
 }
 
 /*******************************************************************************
- * 函数名:close_fd
+ * 函数名:close_usart
  * 功能描述:关闭串口
  * 参数:s32_t psp_fd
  * 被调用:
  * 返回值:void
  ******************************************************************************/
-void close_fd(s32_t psp_fd)
+void close_usart(s32_t psp_fd)
 {
     if ( psp_fd >0 )
     {
         close( psp_fd );
     }
-}   /*-------- end close_fd -------- */
+}   /*-------- end close_usart -------- */

@@ -85,7 +85,7 @@ static status_t _do_analysis_proc(u08_t *pdata_bfr, u08_t rd_bytes)
     {
         if ( pdata_bfr[i] != i )
         {
-            printf("analysis error byte%d!=%d\n", pdata_bfr[i],i);
+            printf("analysis error byte%d!=%d\n", i, pdata_bfr[i]);
         }
     }
 
@@ -141,7 +141,7 @@ static void receive_and_parse(u08_t *pdata_bfr, s32_t rs485_fd)
             }
             else if (0 == ret_val)
             {
-                if ((rd_bytes > 0) && (rd_bytes < 256))
+                if ( (rd_bytes < 256) )
                 {
                     // 解析
                     _do_analysis_proc(pdata_bfr, (u08_t)rd_bytes);
@@ -201,19 +201,22 @@ static void  download_func (void)
         return;
     }
 
-     while ( 1 )
-     {
-         /* 获取buf */
-         get_send_buf( buf, &len );
+    while ( 1 )
+    {
+        /* 获取buf */
+        get_send_buf( buf, &len );
 
-         /* 发送 */
-         write_data(gs_rs485_fd, buf, len, BAND_RATE );
-         memset( buf, 0, 256 );
+        /* 发送 */
+        write_data(gs_rs485_fd, buf, len, BAND_RATE );
+        memset( buf, 0, 256 );
 
-         /* 接收处理 */
-         receive_and_parse(buf ,gs_rs485_fd);
-         memset( buf, 0, 256 );
-     }
+        /* 接收处理 */
+        receive_and_parse(buf ,gs_rs485_fd);
+        memset( buf, 0, 256 );
+    }
+
+    close_usart( gs_rs485_fd );
+
 }   /*-------- end download_func  -------- */
 
 /*******************************************************************************
