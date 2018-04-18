@@ -1,0 +1,9 @@
+#+TITLE: 测试两个串口的独立性
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
+#+OPTIONS: ^:nil
+
+
+* Table of Contents                                         :TOC_4_org:noexport:
+
+* 原因
+  两个串口因为波特率的不一样，导致通讯中的报文出现了错误的情况， 做一个简单的测试程序
