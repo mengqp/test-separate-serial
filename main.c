@@ -11,9 +11,25 @@
  *
  *
  ******************************************************************************/
+#include "up.h"
+#include "download.h"
+#include "datatype.h"
 
 int main(int argc, char *argv[])
 {
+    if (SUCCESS != _start_download())
+    {
+        printf("start download error\n");
+    }
 
+    if (SUCCESS != _start_upload())
+    {
+        printf("start up error \n");
+    }
+
+    while (1)
+    {
+        sleep( 10 );
+    }
     return 0;
 }

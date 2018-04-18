@@ -14,6 +14,8 @@
 #ifndef DOWNLOAD_H
 #define DOWNLOAD_H
 
+#include "datatype.h"
 
+status_t  _start_download(void);
 
 #endif /* DOWNLOAD_H */

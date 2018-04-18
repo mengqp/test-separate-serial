@@ -16,8 +16,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <termios.h>
-#include <unistd.h>
-#include <strings.h>
 
 
 

@@ -14,6 +14,10 @@
 
 #ifndef DATATYPE_H
 #define DATATYPE_H
+#include <unistd.h>
+#include <strings.h>
+#include <stdio.h>
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // 全局数据类型及数据结构定义

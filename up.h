@@ -14,7 +14,8 @@
 
 #ifndef UP_H
 #define UP_H
+#include "datatype.h"
 
-
+status_t  _start_upload(void);
 
 #endif /* UP_H */
