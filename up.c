@@ -114,7 +114,7 @@ static void receive_and_parse(u08_t *pdata_bfr, s32_t rs485_fd)
     }
     else if (0 == ret_val)
     {
-        printf("up丢帧\n");
+        /* printf("up丢帧\n"); */
     }
     else
     {

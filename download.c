@@ -30,6 +30,32 @@ static const u16_t SELECT_TIMEOUT = 20000;
 
 static s32_t gs_rs485_fd = -1;
 
+static unsigned int writeTobFile ( char *pszFileName,
+                                   unsigned char *pszBuf,
+                                   int len)
+{
+    FILE *pFile = NULL;
+    unsigned int num;
+
+    if( NULL == pszFileName
+        || 0 == len)
+    {
+        return 0;}
+
+    pFile = fopen( pszFileName, "a+" );
+    if( NULL == pFile )
+    {
+        perror( "pszFileName" );
+        return 0;
+    }
+
+    num = fwrite( pszBuf, 1, len, pFile  );
+    fclose( pFile );
+
+    return num;
+}		/* -----  end o */
+
+
 /*******************************************************************************
  * 函数名:get_send_buf
  * 功能描述:获取报文
@@ -85,7 +111,10 @@ static status_t _do_analysis_proc(u08_t *pdata_bfr, u08_t rd_bytes)
     {
         if ( pdata_bfr[i] != i )
         {
-            printf("analysis error byte%d!=%d\n", i, pdata_bfr[i]);
+            char tmp[256];
+            sprintf(tmp, "analysis error byte%d!=%d\n", i, pdata_bfr[i]);
+            printf("%s\n", tmp);
+            writeTobFile((char *)"./test_serial.txt", pdata_bfr, rd_bytes);
         }
     }
 
