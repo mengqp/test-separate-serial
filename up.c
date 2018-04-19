@@ -41,11 +41,18 @@ static status_t  get_send_buf(u08_t *pbuf , u32_t *plen )
 {
     int i;
     int len = 0;
+    static u08_t type = 8;
 
-    for (i = 0; i < 230; i++)
+    for (i = 0; i < type; i++)
     {
         pbuf[i] = (u08_t )i;
         len ++;
+    }
+
+    type += 8;
+    if ( type > 240 )
+    {
+        type = 8;
     }
 
     *plen = len;
@@ -207,11 +214,11 @@ static void upload_func (void)
 
         /* 发送 */
         write_data(gs_rs485_fd, buf, len, BAND_RATE );
-        memset( buf, 0, 256 );
+        /* memset( buf, 0, 256 ); */
 
         /* 接收处理 */
         receive_and_parse(buf ,gs_rs485_fd);
-        memset( buf, 0, 256 );
+        /* memset( buf, 0, 256 ); */
     }
 
     close_usart( gs_rs485_fd );

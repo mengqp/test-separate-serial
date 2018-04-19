@@ -35,5 +35,19 @@ typedef double					f64_t;
 typedef enum {SUCCESS, FAIL = !SUCCESS} status_t;
 typedef enum {INVALID, VALID = !INVALID} item_status_t;
 
+// 时间
+typedef struct
+{
+	u16_t year;
+	u08_t mon;
+	u08_t mday;
+	u08_t wday;
+	u08_t hour;
+	u08_t min;
+	u08_t sec;
+	u16_t msec;
+}time_info_t;
+
+
 
 #endif /* DATATYPE_H */

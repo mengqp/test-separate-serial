@@ -18,7 +18,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <termios.h>
-#include "string.h"
+#include <string.h>
 
 static const char RS485_1_DEV_NAME[] = "/dev/ttyO5";
 static const u32_t BAND_RATE = 38400;
@@ -36,6 +36,14 @@ static unsigned int writeTobFile ( char *pszFileName,
 {
     FILE *pFile = NULL;
     unsigned int num;
+    int i;
+    char buf[1024];
+    sprintf(buf, "RX len=%d:", len);
+    for (i = 0; i < len; i++)
+    {
+        sprintf(&buf[strlen(buf)], " %.2x", pszBuf[i] );
+    }
+    sprintf(&buf[strlen(buf)], "\r\n" );
 
     if( NULL == pszFileName
         || 0 == len)
@@ -49,7 +57,7 @@ static unsigned int writeTobFile ( char *pszFileName,
         return 0;
     }
 
-    num = fwrite( pszBuf, 1, len, pFile  );
+    num = fwrite( buf, 1, strlen(buf)  , pFile        );
     fclose( pFile );
 
     return num;
@@ -114,8 +122,9 @@ static status_t _do_analysis_proc(u08_t *pdata_bfr, u08_t rd_bytes)
             char tmp[256];
             sprintf(tmp, "analysis error byte%d!=%d\n", i, pdata_bfr[i]);
             printf("%s\n", tmp);
-            writeTobFile((char *)"./test_serial.txt", pdata_bfr, rd_bytes);
+            writeTobFile((char *)"/opt/test_serial.txt", pdata_bfr, rd_bytes);
         }
+        /* printf("hello word\n"); */
     }
 
 
@@ -237,11 +246,11 @@ static void  download_func (void)
 
         /* 发送 */
         write_data(gs_rs485_fd, buf, len, BAND_RATE );
-        memset( buf, 0, 256 );
+        /* memset( buf, 0, 256 ); */
 
         /* 接收处理 */
         receive_and_parse(buf ,gs_rs485_fd);
-        memset( buf, 0, 256 );
+        /* memset( buf, 0, 256 ); */
     }
 
     close_usart( gs_rs485_fd );
